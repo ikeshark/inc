@@ -9,7 +9,7 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -t true",
 		"format": "prettier --write .",
 		"lint": "prettier --check ."
 	},
