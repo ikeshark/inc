@@ -1,25 +1,26 @@
 <script>
 	import '../app.css';
+  import { base } from '$app/paths';
 
 	let { children } = $props();
 </script>
 
 <header>
-  <h1 class="bold"><a href="/">inc inc inc</a></h1>
+  <h1 class="bold"><a href="{base}/">inc inc inc</a></h1>
   <nav>
     <ul>
       <li>
-        <a href="/about">
+        <a href="{base}/about">
           about
         </a>
       </li>
       <li>
-        <a href="/listen">
+        <a href="{base}/listen">
           listen
         </a>
       </li>
       <li>
-        <a href="/icp">
+        <a href="{base}/icp">
           ice cream in panama
         </a>
       </li>

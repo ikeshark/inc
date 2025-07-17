@@ -1,4 +1,6 @@
 <script>
+  import { base } from '$app/paths';
+
   let ftbotwv1Src = 'https://bandcamp.com/EmbeddedPlayer/album=109934235/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=true/transparent=true/'
   let iiiSrc = 'https://bandcamp.com/EmbeddedPlayer/album=3761951308/size=large/bgcol=f4f4f4/linkcol=0687f5/tracklist=true/transparent=true/'
 </script>
@@ -22,7 +24,7 @@
     <p>a challenge of the highest order during the shortest month</p>
     <p>the reptilian bistro was more than gracious hosting inc<sup>3</sup> as we battled time with rhythm and pitch</p>
     <p>melancholic folk, polyrhythmic rock, cellular madness melting into the fracturing of time itself</p>
-    <p>make your own <a class="font-semibold underline text-blue-700" href="/icp">ice cream in panama</a></p>
+    <p>make your own <a class="font-semibold underline text-blue-700" href="{base}/icp">ice cream in panama</a></p>
   </section>
 </main>
 
