@@ -35,25 +35,25 @@
   let lengthInput = $state('');
 
   onMount(() => {
-    iceCreamGtr = new Tone.Player('samples/icp_gtr.mp3').toDestination();
-    iceCreamVln = new Tone.Player('samples/icp_vln.mp3').toDestination();
-    iceCreamVlc = new Tone.Player('samples/icp_vlc.mp3').toDestination();
+    iceCreamGtr = new Tone.Player('/samples/icp_gtr.mp3').toDestination();
+    iceCreamVln = new Tone.Player('/samples/icp_vln.mp3').toDestination();
+    iceCreamVlc = new Tone.Player('/samples/icp_vlc.mp3').toDestination();
 
-    beachGtr = new Tone.Player('samples/beach_gtr.mp3').toDestination();
-    beachVln = new Tone.Player('samples/beach_vln.mp3').toDestination();
-    beachVlc = new Tone.Player('samples/beach_vlc.mp3').toDestination();
+    beachGtr = new Tone.Player('/samples/beach_gtr.mp3').toDestination();
+    beachVln = new Tone.Player('/samples/beach_vln.mp3').toDestination();
+    beachVlc = new Tone.Player('/samples/beach_vlc.mp3').toDestination();
 
-    sharkGtr = new Tone.Player('samples/shark_gtr.mp3').toDestination();
-    sharkVln = new Tone.Player('samples/shark_vln.mp3').toDestination();
-    sharkVlc = new Tone.Player('samples/shark_vlc.mp3').toDestination();
+    sharkGtr = new Tone.Player('/samples/shark_gtr.mp3').toDestination();
+    sharkVln = new Tone.Player('/samples/shark_vln.mp3').toDestination();
+    sharkVlc = new Tone.Player('/samples/shark_vlc.mp3').toDestination();
 
-    volcanoGtr = new Tone.Player('samples/volcano_gtr.mp3').toDestination();
-    volcanoVln = new Tone.Player('samples/volcano_vln.mp3').toDestination();
-    volcanoVlc = new Tone.Player('samples/volcano_vlc.mp3').toDestination();
+    volcanoGtr = new Tone.Player('/samples/volcano_gtr.mp3').toDestination();
+    volcanoVln = new Tone.Player('/samples/volcano_vln.mp3').toDestination();
+    volcanoVlc = new Tone.Player('/samples/volcano_vlc.mp3').toDestination();
 
-    snorkelGtr = new Tone.Player('samples/snorkel_gtr.mp3').toDestination();
-    snorkelVln = new Tone.Player('samples/snorkel_vln.mp3').toDestination();
-    snorkelVlc = new Tone.Player('samples/snorkel_vlc.mp3').toDestination();
+    snorkelGtr = new Tone.Player('/samples/snorkel_gtr.mp3').toDestination();
+    snorkelVln = new Tone.Player('/samples/snorkel_vln.mp3').toDestination();
+    snorkelVlc = new Tone.Player('/samples/snorkel_vlc.mp3').toDestination();
 
     toneLoops = {
       iceCreamGtr,
@@ -97,8 +97,6 @@
   
       const lengthInSec = Tone.Transport.toSeconds(`${measures * reps}m`);
 
-      console.log(lengthInSec)
-
       const gtr = toneLoops[name + 'Gtr'];
       const vln = toneLoops[name + 'Vln'];
       const vlc = toneLoops[name + 'Vlc'];
@@ -118,7 +116,6 @@
         }
 
         if (defaultMeasures !== measures) {
-          console.log('hey')
           gtr.loopEnd = `${measures}m`;
           vln.loopEnd = `${measures}m`;
           vlc.loopEnd = `${measures}m`;
