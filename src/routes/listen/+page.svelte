@@ -12,7 +12,7 @@
   <section class="p-4 space-y-4 max-w-prose">
     <h2 class="font-black text-xl">from the bottom of the world, vol 1</h2>
     <p>recorded in the dark depths, past the swamp of stale ass mouth smell</p>
-    <p>illuminated by iridescent gallium peppering the corners of the walls</p>
+    <p>illuminated by gallium peppering the corners of the walls</p>
     <p>three smartphones, a cello, violin, guitar, and five oblique strategies</p>
     <p>sound collage, lo-fi, effects pedals, free improv</p>
   </section>

@@ -2,7 +2,7 @@
 
 <main>
   <h2>about</h2>
-  <section class="aboutText">
+  <section class="aboutText mt-2">
     <p>music band from <b>baltimore, maryland</b>. rhythm equals pitch.</p>
     <p>the once and future band making anachronistic music &mdash; sometimes atemporal &mdash; with deep-fried electric <b>cello, violin and guitar</b>.</p>
     <p>when they play, anything could happen: forlorn dissonances dance with bubbly polyrhythms, sweet melodies clash with <b>the brutal Monorhythm</b>.</p> 
@@ -11,35 +11,29 @@
   <!-- <p><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/incincincmusic/">https://www.instagram.com/incincincmusic/</a></p>
   <p><a target="_blank" rel="noopener noreferrer" href="https://magazine.peabody.jhu.edu/2023/03/21/inc-inc-inc-releases-debut-album/">https://magazine.peabody.jhu.edu/2023/03/21/inc-inc-inc-releases-debut-album/</a></p> -->
 
-  <div class="personalLinks">
-    <section>
-      <a target="_blank" rel="noopener noreferrer" href="https://www.rubyfulton.com/">
-        👤
-        <h2>inc</h2>
-      </a>      
-    </section>
-    <section>
-      <a target="_blank" rel="noopener noreferrer" href="https://ikeshark.bandcamp.com/">
-        👤
-        <h2>inc</h2>
-      </a>
-    </section>
-    <section>
-      <a target="_blank" rel="noopener noreferrer" href="https://soundcloud.com/andrew-histand/whorl">
-        👤
-        <h2>inc</h2>
-      </a>
-    </section>
-  </div>
+  <h2 class="mt-4 leading-tight">get personal with <br> inc inc inc</h2>
+  <section class="personalLinks">
+    <a target="_blank" rel="noopener noreferrer" href="https://www.rubyfulton.com/">
+      👤
+      <h2>inc</h2>
+    </a>      
+    <a target="_blank" rel="noopener noreferrer" href="https://ikeshark.bandcamp.com/">
+      👤
+      <h2>inc</h2>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" href="https://soundcloud.com/andrew-histand/whorl">
+      👤
+      <h2>inc</h2>
+    </a>
+  </section>
+<!-- 
+  <h2 class="mt-4">upcoming shows</h2>
+  <ul>
+    <li>10/16</li>
+  </ul> -->
 
-  <h2 class="mt-6">friends of inc</h2>
-  <ul class="friends">
-    <li>
-      <a target="_blank" rel="noopener noreferrer" href="https://barnyardsharks.bandcamp.com/">
-        barnyard sharks
-        <img height="333" src="https://ikeshark.github.io/portfolio/img/sharks.jpg" alt="">
-      </a>
-    </li>
+  <h2 class="mt-8">friends of inc</h2>
+  <ul class="friends mt-2">
     <li>
       <a target="_blank" rel="noopener noreferrer" href="https://weusedtobefamily.bandcamp.com/">
         we used to be family
@@ -48,14 +42,20 @@
     </li>
     <li>
       <a target="_blank" rel="noopener noreferrer" href="https://barnyardsharks.bandcamp.com/">
+        barnyard sharks
+        <img height="333" src="https://ikeshark.github.io/portfolio/img/sharks.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a target="_blank" rel="noopener noreferrer" href="https://impatiencemachine.bandcamp.com/album/impatience-machine/">
         impatience machine
         <img class="h-333 object-cover" src="https://ikeshark.github.io/portfolio/img/impmach.jpg" alt="">
       </a>
     </li>
     <li>
-      <a target="_blank" rel="noopener noreferrer" href="https://barnyardsharks.bandcamp.com/">
-        leaf house
-        <img height="333" src="https://ikeshark.github.io/portfolio/img/leafhouse2.jpg" alt="">
+      <a target="_blank" rel="noopener noreferrer" href="https://ehserecords.bandcamp.com/album/summer-fun">
+        nudie suits
+        <img height="333" src="https://f4.bcbits.com/img/a3688055488_16.jpg" alt="">
       </a>
     </li>
   </ul>
@@ -69,7 +69,6 @@
     font-size: 1.5rem;
     font-weight: 800;
     text-align: center;
-    margin-bottom: 1rem;
   }
   p {
     margin-bottom: 0.875rem;
@@ -87,7 +86,7 @@
     gap: 1.5rem;
     margin-top: 1.5rem;
   }
-  .personalLinks section {
+  .personalLinks a {
     padding: 0.5rem 1rem;
     text-align: center;
     font-size: 3rem;
@@ -95,10 +94,10 @@
     border-radius: 8px;
     box-shadow: 2px 2px 0.33rem rgba(222, 35, 35, 0.285);
   }
-  .personalLinks section:hover {
+  .personalLinks a:hover {
     outline: black 3px solid;
   }
-  .personalLinks section h2 {
+  .personalLinks h2 {
     font-size: 1.75rem;
   }
 
@@ -122,13 +121,12 @@
     }
     .personalLinks {
       gap: 2rem;
-      margin-top: 2rem;
     }
-    .personalLinks section {
+    .personalLinks a {
       padding: 0.75rem 2.5rem;
       font-size: 4rem;
     }
-    .personalLinks section h2 {
+    .personalLinks h2 {
       font-size: 2.5rem;
     }
     .friends {

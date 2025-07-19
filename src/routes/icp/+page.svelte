@@ -203,7 +203,9 @@
   }
 
   // bounce samples quieter, and better fades/cuts, quantize around 1/2n marks
-
+  // https://github.com/metonym/sveltekit-gh-pages/blob/master/README.md
+  // https://github.com/khromov/derivault/blob/main/.github/workflows/build.yml
+  // https://www.reddit.com/r/sveltejs/comments/synqd4/sveltekit_relative_paths/
   // RUBY IDEA: selected emoji also becomes background (replacing black bg)
 </script>
 
