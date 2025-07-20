@@ -1,6 +1,8 @@
 
 <script>
   import { onMount } from 'svelte';
+  import { base } from '$app/paths';
+
   import * as Tone from 'tone';
   import { loops } from '$lib'
 
@@ -35,25 +37,25 @@
   let lengthInput = $state('');
 
   onMount(() => {
-    iceCreamGtr = new Tone.Player('/samples/icp_gtr.mp3').toDestination();
-    iceCreamVln = new Tone.Player('/samples/icp_vln.mp3').toDestination();
-    iceCreamVlc = new Tone.Player('/samples/icp_vlc.mp3').toDestination();
+    iceCreamGtr = new Tone.Player(`${base}/samples/icp_gtr.mp3`).toDestination();
+    iceCreamVln = new Tone.Player(`${base}/samples/icp_vln.mp3`).toDestination();
+    iceCreamVlc = new Tone.Player(`${base}/samples/icp_vlc.mp3`).toDestination();
 
-    beachGtr = new Tone.Player('/samples/beach_gtr.mp3').toDestination();
-    beachVln = new Tone.Player('/samples/beach_vln.mp3').toDestination();
-    beachVlc = new Tone.Player('/samples/beach_vlc.mp3').toDestination();
+    beachGtr = new Tone.Player(`${base}/samples/beach_gtr.mp3`).toDestination();
+    beachVln = new Tone.Player(`${base}/samples/beach_vln.mp3`).toDestination();
+    beachVlc = new Tone.Player(`${base}/samples/beach_vlc.mp3`).toDestination();
 
-    sharkGtr = new Tone.Player('/samples/shark_gtr.mp3').toDestination();
-    sharkVln = new Tone.Player('/samples/shark_vln.mp3').toDestination();
-    sharkVlc = new Tone.Player('/samples/shark_vlc.mp3').toDestination();
+    sharkGtr = new Tone.Player(`${base}/samples/shark_gtr.mp3`).toDestination();
+    sharkVln = new Tone.Player(`${base}/samples/shark_vln.mp3`).toDestination();
+    sharkVlc = new Tone.Player(`${base}/samples/shark_vlc.mp3`).toDestination();
 
-    volcanoGtr = new Tone.Player('/samples/volcano_gtr.mp3').toDestination();
-    volcanoVln = new Tone.Player('/samples/volcano_vln.mp3').toDestination();
-    volcanoVlc = new Tone.Player('/samples/volcano_vlc.mp3').toDestination();
+    volcanoGtr = new Tone.Player(`${base}/samples/volcano_gtr.mp3`).toDestination();
+    volcanoVln = new Tone.Player(`${base}/samples/volcano_vln.mp3`).toDestination();
+    volcanoVlc = new Tone.Player(`${base}/samples/volcano_vlc.mp3`).toDestination();
 
-    snorkelGtr = new Tone.Player('/samples/snorkel_gtr.mp3').toDestination();
-    snorkelVln = new Tone.Player('/samples/snorkel_vln.mp3').toDestination();
-    snorkelVlc = new Tone.Player('/samples/snorkel_vlc.mp3').toDestination();
+    snorkelGtr = new Tone.Player(`${base}/samples/snorkel_gtr.mp3`).toDestination();
+    snorkelVln = new Tone.Player(`${base}/samples/snorkel_vln.mp3`).toDestination();
+    snorkelVlc = new Tone.Player(`${base}/samples/snorkel_vlc.mp3`).toDestination();
 
     toneLoops = {
       iceCreamGtr,
