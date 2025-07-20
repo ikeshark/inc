@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>listen to inc inc inc</title>
+</svelte:head>
+
 <script>
   import { base } from '$app/paths';
 

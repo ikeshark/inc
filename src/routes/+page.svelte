@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>inc inc inc</title>
+</svelte:head>
+
 <script>
   let incWords = [
     'incorporate',

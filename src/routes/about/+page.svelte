@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>about inc inc inc</title>
+</svelte:head>
+
 <!-- where to put show info if and when i get that worked out -->
 
 <main>

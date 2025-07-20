@@ -1,3 +1,6 @@
+<svelte:head>
+  <title>ice cream in panama</title>
+</svelte:head>
 
 <script>
   import { onMount } from 'svelte';
