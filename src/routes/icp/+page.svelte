@@ -38,6 +38,8 @@
   let selectedLoopIndex = $state(null);
   let timeline = $state([]);
   let lengthInput = $state('');
+  let isPlaying = $state(false);
+  let playingIndex = $state(null);
 
   onMount(() => {
     iceCreamGtr = new Tone.Player(`${base}/samples/icp_gtr.mp3`).toDestination();
@@ -48,17 +50,17 @@
     beachVln = new Tone.Player(`${base}/samples/beach_vln.mp3`).toDestination();
     beachVlc = new Tone.Player(`${base}/samples/beach_vlc.mp3`).toDestination();
 
-    sharkGtr = new Tone.Player(`${base}/samples/shark_gtr.mp3`).toDestination();
-    sharkVln = new Tone.Player(`${base}/samples/shark_vln.mp3`).toDestination();
-    sharkVlc = new Tone.Player(`${base}/samples/shark_vlc.mp3`).toDestination();
+    sharkGtr = new Tone.Player(`${base}/samples/shark_gtr3.mp3`).toDestination();
+    sharkVln = new Tone.Player(`${base}/samples/shark_vln3.mp3`).toDestination();
+    sharkVlc = new Tone.Player(`${base}/samples/shark_vlc2.mp3`).toDestination();
 
-    volcanoGtr = new Tone.Player(`${base}/samples/volcano_gtr.mp3`).toDestination();
-    volcanoVln = new Tone.Player(`${base}/samples/volcano_vln.mp3`).toDestination();
-    volcanoVlc = new Tone.Player(`${base}/samples/volcano_vlc.mp3`).toDestination();
+    volcanoGtr = new Tone.Player(`${base}/samples/volcano_gtr2.mp3`).toDestination();
+    volcanoVln = new Tone.Player(`${base}/samples/volcano_vln2.mp3`).toDestination();
+    volcanoVlc = new Tone.Player(`${base}/samples/volcano_vlc2.mp3`).toDestination();
 
-    snorkelGtr = new Tone.Player(`${base}/samples/snorkel_gtr.mp3`).toDestination();
+    snorkelGtr = new Tone.Player(`${base}/samples/snorkel_gtr2.mp3`).toDestination();
     snorkelVln = new Tone.Player(`${base}/samples/snorkel_vln.mp3`).toDestination();
-    snorkelVlc = new Tone.Player(`${base}/samples/snorkel_vlc.mp3`).toDestination();
+    snorkelVlc = new Tone.Player(`${base}/samples/snorkel_vlc2.mp3`).toDestination();
 
     toneLoops = {
       iceCreamGtr,
@@ -91,13 +93,19 @@
     delay2 = new Tone.Delay('4n').toDestination();
 
     Tone.getTransport().bpm.value = 186;
-  })
+  });
     
-  function play(timeline) {
-    stop(); 
+  function play(timelineArr) {
+    // before was calling stop() at beginning of play. but that complicates having 'preview' and 'play' modes
+    Tone.getTransport().stop();
 
     let curMeasure = 0;
-    timeline.forEach((loop, i) => {
+
+    const totalMeasures = timelineArr.reduce((acc, cur) => {
+      return (cur.measures * cur.reps) + acc
+    }, 0)
+
+    timelineArr.forEach((loop, i) => {
       const { reps, measures, defaultMeasures, variant, name } = loop;
   
       const lengthInSec = Tone.Transport.toSeconds(`${measures * reps}m`);
@@ -106,29 +114,10 @@
       const vln = toneLoops[name + 'Vln'];
       const vlc = toneLoops[name + 'Vlc'];
 
-      const prevLoopType = timeline[i - 1]?.name;
+      const prevLoopType = timelineArr[i - 1]?.name;
 
       Tone.getTransport().scheduleOnce(time => { 
-        // if prev loop is the same type of loop
-        if (prevLoopType === name) {
-          gtr.restart(time, 0, lengthInSec);
-          vln.restart(time, 0, lengthInSec);
-          vlc.restart(time, 0, lengthInSec);
-        } else {
-          gtr.start(time, 0, lengthInSec);
-          vln.start(time, 0, lengthInSec);
-          vlc.start(time, 0, lengthInSec);
-        }
-
-        if (defaultMeasures !== measures) {
-          gtr.loopEnd = `${measures}m`;
-          vln.loopEnd = `${measures}m`;
-          vlc.loopEnd = `${measures}m`;
-        } else {
-          gtr.loopEnd = `${defaultMeasures}m`;
-          vln.loopEnd = `${defaultMeasures}m`;
-          vlc.loopEnd = `${defaultMeasures}m`;
-        }
+        playingIndex = i;
 
         vlc.playbackRate = 1
         vln.playbackRate = 1
@@ -151,14 +140,46 @@
           vlc.toDestination();
         }
 
+        // if prev loop is the same type of loop
+        if (prevLoopType === name) {
+          gtr.restart(time, 0, `${measures * reps}m`);
+          vln.restart(time, 0, lengthInSec * vln.playbackRate);
+          vlc.restart(time, 0, lengthInSec * vlc.playbackRate);
+        } else {
+          gtr.start(time, 0, `${measures * reps}m`);
+          vln.start(time, 0, `${measures * reps  * vln.playbackRate}m`);
+          vlc.start(time, 0, `${measures * reps  * vlc.playbackRate}m`);
+        }
+
+        if (measures !== defaultMeasures) {
+          gtr.loopEnd = `${measures}m`;
+          vln.loopEnd = `${measures}m`;
+          vlc.loopEnd = `${measures}m`;
+        } else {
+          gtr.loopEnd = 0;
+          vln.loopEnd = 0;
+          vlc.loopEnd = 0;
+        }
+
+
       }, `${curMeasure}:0:0`);
       
       curMeasure += measures * reps;      
-    })
+    });
 
-    Tone.getTransport().start();  
+    // https://github.com/Tonejs/Tone.js/wiki/Performance
+    Tone.getTransport().start('+0.1'); 
+    Tone.Master.mute = false;
+
+    Tone.getTransport().scheduleOnce(time => { 
+      isPlaying = false;
+      playingIndex = null;
+
+    },`${totalMeasures}:0:0`);
   }
   function stop() {
+    isPlaying = false;
+    Tone.Master.mute = true;
     Tone.getTransport().stop();
     Tone.getTransport().cancel();
   }
@@ -180,8 +201,20 @@
     timeline[selectedLoopIndex].measures = parseInt(lengthInput);
   }
   function previewLoop(e) {
-    const tempTimeline = [timeline[selectedLoopIndex]]
-    play(tempTimeline)
+    if (isPlaying) {
+      stop();
+    } else {
+      isPlaying = 'preview';
+
+      const tempTimeline = [timeline[selectedLoopIndex]]
+      play(tempTimeline)
+    }
+  }
+  function playBtn(e) {
+    isPlaying = 'play';
+    selectedLoopIndex = null;
+
+    play([...timeline])
   }
   function scheduleExpand({ target }) {
     timeline[selectedLoopIndex].variant = target.checked ? 'Alt1' : '';
@@ -215,11 +248,12 @@
   <main>
     <section class="mt-4" id="samples">
       <h2>samples</h2>
-      <button value="iceCream" onclick={schedule}>🍦</button>
-      <button value="beach" onclick={schedule}>🏝️</button>
-      <button value="shark" onclick={schedule}>🦈</button><br>
-      <button value="volcano" onclick={schedule}>🌋</button>
-      <button value="snorkel" onclick={schedule}>🤿</button>
+      <button disabled={isPlaying} onclick={schedule} value="iceCream">🍦</button>
+      <button disabled={isPlaying} onclick={schedule} value="beach">🏝️</button>
+      <button disabled={isPlaying} onclick={schedule} value="shark">🦈</button>
+      <br>
+      <button disabled={isPlaying} onclick={schedule} value="volcano">🌋</button>
+      <button disabled={isPlaying} onclick={schedule} value="snorkel">🤿</button>
     </section>
 
     <section class="mt-4" id="effects">
@@ -228,7 +262,7 @@
 
       <div id="effectsGrid">
         <button 
-          class={`w${timeline[selectedLoopIndex].measures} bg-white`} 
+          class={isPlaying === 'preview' ? `w${timeline[selectedLoopIndex].measures} bg-white playing` : `w${timeline[selectedLoopIndex].measures} bg-white`} 
           id="preview" 
           onclick={previewLoop}
           data-variant={timeline[selectedLoopIndex].variant}
@@ -300,11 +334,12 @@
         {#each timeline as item, i}
           <li data-reps={item.reps} class={`w${item.measures}`}>
             <button 
-              class={i === selectedLoopIndex ? 'selected' : '' } 
+              class={i === selectedLoopIndex ? 'selected' : i === playingIndex ? 'playing' : '' } 
               data-index={`${i}`} 
               data-variant={item.variant}
               value={item.icon}
               onclick={selectLoop}
+              disabled={isPlaying}
             >
               <span class={`block wid${item.measures}`}>{item.icon}</span>
             </button>
@@ -314,8 +349,8 @@
     </section>
 
     <section class="mt-4" id="controls">
-      <button id="play" onclick={() => play(timeline)}>play</button>
-      <button id="stop" onclick={stop}>stop</button>
+      <button id="play" disabled={isPlaying || !timeline.length} onclick={playBtn}>play</button>
+      <button id="stop" disabled={!isPlaying} onclick={stop}>stop</button>
     </section>
   </main>
 
@@ -437,6 +472,10 @@
       background-color: rgba(0, 0, 0, 0.613);
       height: 50%;
       clip-path: polygon(0 0, 0% 100%, 75% 50%);
+    }
+    #preview.playing::after {
+      clip-path: unset;
+      right: 1rem;
 
     }
     @media (min-width: 768px) {
@@ -488,6 +527,9 @@
     #timeline .selected {
       outline: 4px solid purple
     }
+    #timeline .playing {
+      outline: 4px solid rgb(128, 0, 30)
+    }
 
     #controls {
       grid-area: controls;
@@ -503,6 +545,9 @@
       padding: 0.25rem 1rem;
       display: inline-block;
       width: fit-content;
+    }
+    #stop:disabled, #play:disabled {
+      background-color: #dfdfdf;
     }
 
     [data-variant='Alt1'] {
